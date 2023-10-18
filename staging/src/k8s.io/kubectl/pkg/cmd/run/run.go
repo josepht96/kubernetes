@@ -258,6 +258,7 @@ func (o *RunOptions) Complete(f cmdutil.Factory, cmd *cobra.Command) error {
 }
 
 func (o *RunOptions) Run(f cmdutil.Factory, cmd *cobra.Command, args []string) error {
+	fmt.Println("in vendor/k8s.io/kubectl/pkg/cmd/run/run.go - Run")
 	// Let kubectl run follow rules for `--`, see #13004 issue
 	if len(args) == 0 || o.ArgsLenAtDash == 0 {
 		return cmdutil.UsageErrorf(cmd, "NAME is required for run")

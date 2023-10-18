@@ -20,6 +20,7 @@ package v1
 
 import (
 	"net/http"
+	"fmt"
 
 	v1 "k8s.io/api/apps/v1"
 	"k8s.io/client-go/kubernetes/scheme"
@@ -119,7 +120,10 @@ func setConfigDefaults(config *rest.Config) error {
 
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
+// this function returns the RESTClient object, which is created by NewRESTClient
 func (c *AppsV1Client) RESTClient() rest.Interface {
+	fmt.Println("in vendor/k8s.io/client-go/kubernetes/typed/apps/v1/apps_client.go - RESTClient")
+	fmt.Println(c.restClient)
 	if c == nil {
 		return nil
 	}

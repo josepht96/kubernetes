@@ -24,6 +24,7 @@ import (
 	"net/url"
 	"strings"
 
+	// "github.com/davecgh/go-spew/spew"
 	"github.com/spf13/cobra"
 
 	corev1 "k8s.io/api/core/v1"
@@ -156,6 +157,7 @@ func NewGetOptions(parent string, streams genericiooptions.IOStreams) *GetOption
 // NewCmdGet creates a command object for the generic "get" action, which
 // retrieves one or more resources from a server.
 func NewCmdGet(parent string, f cmdutil.Factory, streams genericiooptions.IOStreams) *cobra.Command {
+	fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go NewCmdGet")
 	o := NewGetOptions(parent, streams)
 
 	cmd := &cobra.Command{
@@ -166,9 +168,13 @@ func NewCmdGet(parent string, f cmdutil.Factory, streams genericiooptions.IOStre
 		Example:               getExample,
 		// ValidArgsFunction is set when this function is called so that we have access to the util package
 		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go NewCmdGet - Complete")
 			cmdutil.CheckErr(o.Complete(f, cmd, args))
+			fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go NewCmdGet - Validate")
 			cmdutil.CheckErr(o.Validate())
+			fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go NewCmdGet - Run")
 			cmdutil.CheckErr(o.Run(f, args))
+			fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go NewCmdGet - Done")
 		},
 		SuggestFor: []string{"list", "ps"},
 	}
@@ -192,6 +198,7 @@ func NewCmdGet(parent string, f cmdutil.Factory, streams genericiooptions.IOStre
 
 // Complete takes the command arguments and factory and infers any remaining options.
 func (o *GetOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, args []string) error {
+	fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go/Complete")
 	if len(o.Raw) > 0 {
 		if len(args) > 0 {
 			return fmt.Errorf("arguments may not be passed when --raw is specified")
@@ -200,6 +207,7 @@ func (o *GetOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, args []stri
 	}
 
 	var err error
+	fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go/Complete - get namespace from config")
 	o.Namespace, o.ExplicitNamespace, err = f.ToRawKubeConfigLoader().Namespace()
 	if err != nil {
 		return err
@@ -283,7 +291,7 @@ func (o *GetOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, args []stri
 			return cmdutil.UsageErrorf(cmd, usageString)
 		}
 	}
-
+	fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go/Complete returning nil")
 	return nil
 }
 
@@ -437,7 +445,10 @@ func (o *GetOptions) transformRequests(req *rest.Request) {
 // Run performs the get operation.
 // TODO: remove the need to pass these arguments, like other commands.
 func (o *GetOptions) Run(f cmdutil.Factory, args []string) error {
+	fmt.Println("in vendor/k8s.io/kubectl/pkg/cmd/get/get.go Run")
+	// spew.Dump(o)
 	if len(o.Raw) > 0 {
+		fmt.Println("in vendor/k8s.io/kubectl/pkg/cmd/get/get.go Run - getting restClient")
 		restClient, err := f.RESTClient()
 		if err != nil {
 			return err
@@ -470,6 +481,7 @@ func (o *GetOptions) Run(f cmdutil.Factory, args []string) error {
 		TransformRequests(o.transformRequests).
 		Do()
 
+	// spew.Dump(r)
 	if o.IgnoreNotFound {
 		r.IgnoreErrors(apierrors.IsNotFound)
 	}
@@ -510,7 +522,7 @@ func (o *GetOptions) Run(f cmdutil.Factory, args []string) error {
 	trackingWriter := &trackingWriterWrapper{Delegate: o.Out}
 	// output an empty line separating output
 	separatorWriter := &separatorWriterWrapper{Delegate: trackingWriter}
-
+	fmt.Println("in vendor/k8s.io/kubectl/pkg/cmd/get/get.go Run - printers.GetNewTabWriter")
 	w := printers.GetNewTabWriter(separatorWriter)
 	allResourcesNamespaced := !o.AllNamespaces
 	for ix := range objs {
@@ -558,6 +570,7 @@ func (o *GetOptions) Run(f cmdutil.Factory, args []string) error {
 
 		printer.PrintObj(info.Object, w)
 	}
+	fmt.Println("in vendor/k8s.io/kubectl/pkg/cmd/get/get.go Run - Flush")
 	w.Flush()
 	if trackingWriter.Written == 0 && !o.IgnoreNotFound && len(allErrs) == 0 {
 		// if we wrote no output, and had no errors, and are not ignoring NotFound, be sure we output something
@@ -567,6 +580,7 @@ func (o *GetOptions) Run(f cmdutil.Factory, args []string) error {
 			fmt.Fprintln(o.ErrOut, "No resources found")
 		}
 	}
+	fmt.Println("in vendor/k8s.io/kubectl/pkg/cmd/get/get.go Run - Returning utilerrors")
 	return utilerrors.NewAggregate(allErrs)
 }
 

@@ -81,11 +81,13 @@ func Run(cmd *cobra.Command) int {
 // RunNoErrOutput is a version of Run which returns the cobra command error
 // instead of printing it.
 func RunNoErrOutput(cmd *cobra.Command) error {
+	fmt.Println("in vendor/k8s.io/component-base/cli/run.go/RunNoErrOutput")
 	_, err := run(cmd)
 	return err
 }
 
 func run(cmd *cobra.Command) (logsInitialized bool, err error) {
+	fmt.Println("in vendor/k8s.io/component-base/cli/run.go/run")
 	rand.Seed(time.Now().UnixNano())
 	defer logs.FlushLogs()
 

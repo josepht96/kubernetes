@@ -69,7 +69,11 @@ type deployments struct {
 
 // newDeployments returns a Deployments
 func newDeployments(c *AppsV1Client, namespace string) *deployments {
+	fmt.Println("in staging/src/k8s.io/client-go/kubernetes/typed/apps/v1/deployment.go - newDeployments")
+	fmt.Println(c.restClient)
+	// returns a restClient object
 	return &deployments{
+		// this appears as an interface, but its really an object being returned
 		client: c.RESTClient(),
 		ns:     namespace,
 	}
@@ -77,6 +81,7 @@ func newDeployments(c *AppsV1Client, namespace string) *deployments {
 
 // Get takes name of the deployment, and returns the corresponding deployment object, and an error if there is any.
 func (c *deployments) Get(ctx context.Context, name string, options metav1.GetOptions) (result *v1.Deployment, err error) {
+	fmt.Println("in staging/src/k8s.io/client-go/kubernetes/typed/apps/v1/deployment.go - Get")
 	result = &v1.Deployment{}
 	err = c.client.Get().
 		Namespace(c.ns).
@@ -122,6 +127,9 @@ func (c *deployments) Watch(ctx context.Context, opts metav1.ListOptions) (watch
 
 // Create takes the representation of a deployment and creates it.  Returns the server's representation of the deployment, and an error, if there is any.
 func (c *deployments) Create(ctx context.Context, deployment *v1.Deployment, opts metav1.CreateOptions) (result *v1.Deployment, err error) {
+	fmt.Println("in staging/src/k8s.io/client-go/kubernetes/typed/apps/v1/deployment.go - Create")
+	// c is the deployment object
+	// client is a rest.Interface object, it says its an interface but I believe its an object that implements an interface
 	result = &v1.Deployment{}
 	err = c.client.Post().
 		Namespace(c.ns).
@@ -207,6 +215,7 @@ func (c *deployments) Patch(ctx context.Context, name string, pt types.PatchType
 
 // Apply takes the given apply declarative configuration, applies it and returns the applied deployment.
 func (c *deployments) Apply(ctx context.Context, deployment *appsv1.DeploymentApplyConfiguration, opts metav1.ApplyOptions) (result *v1.Deployment, err error) {
+	fmt.Println("in staging/src/k8s.io/client-go/kubernetes/typed/apps/v1/deployment.go - Apply")
 	if deployment == nil {
 		return nil, fmt.Errorf("deployment provided to Apply must not be nil")
 	}

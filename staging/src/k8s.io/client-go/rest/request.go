@@ -129,6 +129,7 @@ type Request struct {
 
 // NewRequest creates a new request helper object for accessing runtime.Objects on a server.
 func NewRequest(c *RESTClient) *Request {
+	fmt.Println("in vendor/k8s.io/client-go/rest/request.go - NewRequest")
 	var backoff BackoffManager
 	if c.createBackoffMgr != nil {
 		backoff = c.createBackoffMgr()
@@ -181,6 +182,7 @@ func NewRequestWithClient(base *url.URL, versionedAPIPath string, content Client
 
 // Verb sets the verb this request will use.
 func (r *Request) Verb(verb string) *Request {
+	fmt.Println("in vendor/k8s.io/client-go/rest/request.go - Verb")
 	r.verb = verb
 	return r
 }
@@ -208,6 +210,7 @@ func (r *Request) Suffix(segments ...string) *Request {
 
 // Resource sets the resource to access (<resource>/[ns/<namespace>/]<name>)
 func (r *Request) Resource(resource string) *Request {
+	fmt.Println("in vendor/k8s.io/client-go/rest/request.go - Resource")
 	if r.err != nil {
 		return r
 	}
@@ -292,6 +295,7 @@ func (r *Request) Name(resourceName string) *Request {
 
 // Namespace applies the namespace scope to a request (<resource>/[ns/<namespace>/]<name>)
 func (r *Request) Namespace(namespace string) *Request {
+	fmt.Println("in vendor/k8s.io/client-go/rest/request.go - Namespace")
 	if r.err != nil {
 		return r
 	}
@@ -437,6 +441,7 @@ func (r *Request) MaxRetries(maxRetries int) *Request {
 // If obj is a runtime.Object and nil, do nothing.
 // Otherwise, set an error.
 func (r *Request) Body(obj interface{}) *Request {
+	fmt.Println("in vendor/k8s.io/client-go/rest/request.go - Body")
 	if r.err != nil {
 		return r
 	}
@@ -1059,6 +1064,7 @@ func (r *Request) request(ctx context.Context, fn func(*http.Request, *http.Resp
 //   - If the server responds with a status: *errors.StatusError or *errors.UnexpectedObjectError
 //   - http.Client.Do errors are returned directly.
 func (r *Request) Do(ctx context.Context) Result {
+	fmt.Println("in vendor/k8s.io/client-go/rest/request.go - Do")
 	var result Result
 	err := r.request(ctx, func(req *http.Request, resp *http.Response) {
 		result = r.transformResponse(resp, req)

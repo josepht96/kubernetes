@@ -224,6 +224,7 @@ func (h *DefaultPluginHandler) Lookup(filename string) (string, bool) {
 }
 
 func Command(name string, arg ...string) *exec.Cmd {
+	fmt.Println("in vendor/k8s.io/kubectl/pkg/cmd/cmd.go/Command")
 	cmd := &exec.Cmd{
 		Path: name,
 		Args: append([]string{name}, arg...),
@@ -242,7 +243,7 @@ func Command(name string, arg ...string) *exec.Cmd {
 
 // Execute implements PluginHandler
 func (h *DefaultPluginHandler) Execute(executablePath string, cmdArgs, environment []string) error {
-
+	fmt.Println("in vendor/k8s.io/kubectl/pkg/cmd/cmd.go/Execute")
 	// Windows does not support exec syscall.
 	if runtime.GOOS == "windows" {
 		cmd := Command(executablePath, cmdArgs...)
@@ -312,6 +313,7 @@ func HandlePluginCommand(pluginHandler PluginHandler, cmdArgs []string, exactMat
 
 // NewKubectlCommand creates the `kubectl` command and its nested children.
 func NewKubectlCommand(o KubectlOptions) *cobra.Command {
+	fmt.Println("in vendor/k8s.io/kubectl/pkg/cmd/cmd.go/NewKubectlCommand")
 	warningHandler := rest.NewWarningWriter(o.IOStreams.ErrOut, rest.WarningWriterOptions{Deduplicate: true, Color: term.AllowsColorOutput(o.IOStreams.ErrOut)})
 	warningsAsErrors := false
 	// Parent command to which all subcommands are added.

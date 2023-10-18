@@ -1,0 +1,214 @@
+in cmd/kubectl/kubectl.go/main
+in staging/src/kubectl/pkg/cmd/cmd.go/NewKubectlCommand
+in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go NewCmdGet
+in vendor/k8s.io/component-base/cli/run.go/RunNoErrOutput
+in vendor/k8s.io/component-base/cli/run.go/run
+in vendor/github.com/spf13/cobra/command.go/Execute
+in vendor/github.com/spf13/cobra/command.go/ExecuteC
+in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go NewCmdGet - Complete
+in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go/Complete
+in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go/Complete - get namespace from config
+in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go/Complete returning nil
+in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go NewCmdGet - Validate
+in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go NewCmdGet - Run
+in vendor/k8s.io/kubectl/pkg/cmd/get/get.go Run
+(*get.GetOptions)(0x140006505a0)({
+ PrintFlags: (*get.PrintFlags)(0x140006431c0)({
+  JSONYamlPrintFlags: (*genericclioptions.JSONYamlPrintFlags)(0x14000639f61)({
+   ShowManagedFields: (bool) false
+  }),
+  NamePrintFlags: (*genericclioptions.NamePrintFlags)(0x14000511930)({
+   Operation: (string) ""
+  }),
+  CustomColumnsFlags: (*get.CustomColumnsPrintFlags)(0x1400042a348)({
+   NoHeaders: (bool) false,
+   TemplateArgument: (string) ""
+  }),
+  HumanReadableFlags: (*get.HumanPrintFlags)(0x14000039590)({
+   ShowKind: (*bool)(0x14000639f64)(false),
+   ShowLabels: (*bool)(0x14000639f63)(false),
+   SortBy: (*string)(0x14000511970)(""),
+   ColumnLabels: (*[]string)(0x1400042a330)({
+   }),
+   NoHeaders: (bool) false,
+   Kind: (schema.GroupKind) ,
+   WithNamespace: (bool) false
+  }),
+  TemplateFlags: (*genericclioptions.KubeTemplatePrintFlags)(0x1400040f1a0)({
+   GoTemplatePrintFlags: (*genericclioptions.GoTemplatePrintFlags)(0x14000511950)({
+    AllowMissingKeys: (*bool)(0x14000639f62)(true),
+    TemplateArgument: (*string)(0x14000511940)("")
+   }),
+   JSONPathPrintFlags: (*genericclioptions.JSONPathPrintFlags)(0x14000511960)({
+    AllowMissingKeys: (*bool)(0x14000639f62)(true),
+    TemplateArgument: (*string)(0x14000511940)("")
+   }),
+   AllowMissingKeys: (*bool)(0x14000639f62)(true),
+   TemplateArgument: (*string)(0x14000511940)("")
+  }),
+  NoHeaders: (*bool)(0x14000639f60)(false),
+  OutputFormat: (*string)(0x14000511920)("")
+ }),
+ ToPrinter: (func(*meta.RESTMapping, *bool, bool, bool) (printers.ResourcePrinterFunc, error)) 0x102372f20,
+ IsHumanReadablePrinter: (bool) true,
+ CmdParent: (string) (len=7) "kubectl",
+ FilenameOptions: (resource.FilenameOptions) {
+  Filenames: ([]string) <nil>,
+  Kustomize: (string) "",
+  Recursive: (bool) false
+ },
+ Raw: (string) "",
+ Watch: (bool) false,
+ WatchOnly: (bool) false,
+ ChunkSize: (int64) 500,
+ OutputWatchEvents: (bool) false,
+ LabelSelector: (string) "",
+ FieldSelector: (string) "",
+ AllNamespaces: (bool) false,
+ Namespace: (string) (len=7) "default",
+ ExplicitNamespace: (bool) false,
+ Subresource: (string) "",
+ SortBy: (string) "",
+ ServerPrint: (bool) true,
+ NoHeaders: (bool) false,
+ IgnoreNotFound: (bool) false,
+ IOStreams: (genericiooptions.IOStreams) {
+  In: (*os.File)(0x1400007c028)({
+   file: (*os.file)(0x140000ac060)({
+    pfd: (poll.FD) {
+     fdmu: (poll.fdMutex) {
+      state: (uint64) 0,
+      rsema: (uint32) 0,
+      wsema: (uint32) 0
+     },
+     Sysfd: (int) 0,
+     SysFile: (poll.SysFile) {
+      iovecs: (*[]syscall.Iovec)(<nil>)
+     },
+     pd: (poll.pollDesc) {
+      runtimeCtx: (uintptr) <nil>
+     },
+     csema: (uint32) 0,
+     isBlocking: (uint32) 1,
+     IsStream: (bool) true,
+     ZeroReadIsEOF: (bool) true,
+     isFile: (bool) true
+    },
+    name: (string) (len=10) "/dev/stdin",
+    dirinfo: (*os.dirInfo)(<nil>),
+    nonblock: (bool) false,
+    stdoutOrErr: (bool) false,
+    appendMode: (bool) false
+   })
+  }),
+  Out: (*os.File)(0x1400007c030)({
+   file: (*os.file)(0x140000ac0c0)({
+    pfd: (poll.FD) {
+     fdmu: (poll.fdMutex) {
+      state: (uint64) 0,
+      rsema: (uint32) 0,
+      wsema: (uint32) 0
+     },
+     Sysfd: (int) 1,
+     SysFile: (poll.SysFile) {
+      iovecs: (*[]syscall.Iovec)(<nil>)
+     },
+     pd: (poll.pollDesc) {
+      runtimeCtx: (uintptr) <nil>
+     },
+     csema: (uint32) 0,
+     isBlocking: (uint32) 1,
+     IsStream: (bool) true,
+     ZeroReadIsEOF: (bool) true,
+     isFile: (bool) true
+    },
+    name: (string) (len=11) "/dev/stdout",
+    dirinfo: (*os.dirInfo)(<nil>),
+    nonblock: (bool) false,
+    stdoutOrErr: (bool) true,
+    appendMode: (bool) false
+   })
+  }),
+  ErrOut: (*os.File)(0x1400007c038)({
+   file: (*os.file)(0x140000ac120)({
+    pfd: (poll.FD) {
+     fdmu: (poll.fdMutex) {
+      state: (uint64) 0,
+      rsema: (uint32) 0,
+      wsema: (uint32) 0
+     },
+     Sysfd: (int) 2,
+     SysFile: (poll.SysFile) {
+      iovecs: (*[]syscall.Iovec)(<nil>)
+     },
+     pd: (poll.pollDesc) {
+      runtimeCtx: (uintptr) <nil>
+     },
+     csema: (uint32) 0,
+     isBlocking: (uint32) 1,
+     IsStream: (bool) true,
+     ZeroReadIsEOF: (bool) true,
+     isFile: (bool) true
+    },
+    name: (string) (len=11) "/dev/stderr",
+    dirinfo: (*os.dirInfo)(<nil>),
+    nonblock: (bool) false,
+    stdoutOrErr: (bool) true,
+    appendMode: (bool) false
+   })
+  })
+ }
+})
+in vendor/k8s.io/cli-runtime/pkg/resource/build.go/Do
+(*resource.Result)(0x14000505000)({
+ err: (error) <nil>,
+ visitor: (resource.DecoratedVisitor) {
+  visitor: (resource.ContinueOnErrorVisitor) {
+   Visitor: (resource.FlattenListVisitor) {
+    visitor: (resource.VisitorList) (len=1 cap=1) {
+     (*resource.Info)(0x14000343900)(Resource: "/v1, Resource=namespaces", GroupVersionKind: "/v1, Kind=Namespace"
+Name: "test", Namespace: "")
+    },
+    typer: (unstructuredscheme.unstructuredObjectTyper) {
+    },
+    mapper: (*resource.mapper)(0x140009a8ba0)({
+     localFn: (func() bool) 0x10200ce00,
+     restMapperFn: (resource.RESTMapperFunc) 0x10200cd30,
+     clientFn: (func(schema.GroupVersion) (resource.RESTClient, error)) 0x10200ce10,
+     decoder: (*resource.metadataValidatingDecoder)(0x14000298ba0)({
+      decoder: (unstructured.unstructuredJSONScheme) {
+      }
+     })
+    })
+   }
+  },
+  decorators: ([]resource.VisitorFunc) (len=3 cap=4) {
+   (resource.VisitorFunc) 0x101ffddb0,
+   (resource.VisitorFunc) 0x102008b80,
+   (resource.VisitorFunc) 0x102008e60
+  }
+ },
+ sources: ([]resource.Visitor) (len=1 cap=1) {
+  (*resource.Info)(0x14000343900)(Resource: "/v1, Resource=namespaces", GroupVersionKind: "/v1, Kind=Namespace"
+Name: "test", Namespace: "")
+ },
+ singleItemImplied: (bool) true,
+ targetsSingleItems: (bool) true,
+ mapper: (*resource.mapper)(0x140009a8b40)({
+  localFn: (func() bool) 0x10200ce00,
+  restMapperFn: (resource.RESTMapperFunc) 0x10200cd30,
+  clientFn: (func(schema.GroupVersion) (resource.RESTClient, error)) 0x10200ce10,
+  decoder: (*resource.metadataValidatingDecoder)(0x14000298ba0)({
+   decoder: (unstructured.unstructuredJSONScheme) {
+   }
+  })
+ }),
+ ignoreErrors: ([]errors.Matcher) <nil>,
+ info: ([]*resource.Info) <nil>
+})
+in vendor/k8s.io/kubectl/pkg/cmd/get/get.go Run - printers.GetNewTabWriter
+in vendor/k8s.io/kubectl/pkg/cmd/get/get.go Run - Flush
+NAME   STATUS   AGE
+test   Active   71d
+in vendor/k8s.io/kubectl/pkg/cmd/get/get.go Run - Returning utilerrors
+in staging/src/k8s.io/kubectl/pkg/cmd/get/get.go NewCmdGet - Done

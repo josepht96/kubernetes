@@ -49,6 +49,7 @@ func RawDelete(restClient *rest.RESTClient, streams genericiooptions.IOStreams, 
 
 // raw makes a simple HTTP request to the provided path on the server using the default credentials.
 func raw(restClient *rest.RESTClient, streams genericiooptions.IOStreams, url, filename, requestType string) error {
+	fmt.Println("in vendor/k8s.io/kubectl/pkg/rawhttp/raw.go - raw")
 	var data io.Reader
 	switch {
 	case len(filename) == 0:
@@ -67,6 +68,7 @@ func raw(restClient *rest.RESTClient, streams genericiooptions.IOStreams, url, f
 	}
 
 	var request *rest.Request
+	fmt.Println(url)
 	switch requestType {
 	case "GET":
 		request = restClient.Get().RequestURI(url)

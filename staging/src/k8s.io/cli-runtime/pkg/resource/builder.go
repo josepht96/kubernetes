@@ -1168,6 +1168,7 @@ func (b *Builder) visitByPaths() *Result {
 // inputs are consumed by the first execution - use Infos() or Object() on the Result to capture a list
 // for further iteration.
 func (b *Builder) Do() *Result {
+	fmt.Println("in vendor/k8s.io/cli-runtime/pkg/resource/build.go/Do")
 	r := b.visitorResult()
 	r.mapper = b.Mapper()
 	if r.err != nil {

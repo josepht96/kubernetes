@@ -81,6 +81,7 @@ type CreateDeploymentOptions struct {
 
 // NewCreateDeploymentOptions returns an initialized CreateDeploymentOptions instance
 func NewCreateDeploymentOptions(ioStreams genericiooptions.IOStreams) *CreateDeploymentOptions {
+	fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/create/create_deployment.go NewCreateDeploymentOptions")
 	return &CreateDeploymentOptions{
 		Port:       -1,
 		Replicas:   1,
@@ -92,6 +93,7 @@ func NewCreateDeploymentOptions(ioStreams genericiooptions.IOStreams) *CreateDep
 // NewCmdCreateDeployment is a macro command to create a new deployment.
 // This command is better known to users as `kubectl create deployment`.
 func NewCmdCreateDeployment(f cmdutil.Factory, ioStreams genericiooptions.IOStreams) *cobra.Command {
+	fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/create/create_deployment.go NewCmdCreateDeployment")
 	o := NewCreateDeploymentOptions(ioStreams)
 	cmd := &cobra.Command{
 		Use:                   "deployment NAME --image=image -- [COMMAND] [args...]",
@@ -123,6 +125,7 @@ func NewCmdCreateDeployment(f cmdutil.Factory, ioStreams genericiooptions.IOStre
 
 // Complete completes all the options
 func (o *CreateDeploymentOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, args []string) error {
+	fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/create/create_deployment.go Complete")
 	name, err := NameFromCommandArgs(cmd, args)
 	if err != nil {
 		return err
@@ -172,6 +175,7 @@ func (o *CreateDeploymentOptions) Complete(f cmdutil.Factory, cmd *cobra.Command
 
 // Validate makes sure there is no discrepency in provided option values
 func (o *CreateDeploymentOptions) Validate() error {
+	fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/create/create_deployment.go Validate")
 	if len(o.Images) > 1 && len(o.Command) > 0 {
 		return fmt.Errorf("cannot specify multiple --image options and command")
 	}
@@ -180,6 +184,7 @@ func (o *CreateDeploymentOptions) Validate() error {
 
 // Run performs the execution of 'create deployment' sub command
 func (o *CreateDeploymentOptions) Run() error {
+	fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/create/create_deployment.go Run")
 	deploy := o.createDeployment()
 
 	if err := util.CreateOrUpdateAnnotation(o.CreateAnnotation, deploy, scheme.DefaultJSONEncoder()); err != nil {
@@ -206,6 +211,7 @@ func (o *CreateDeploymentOptions) Run() error {
 }
 
 func (o *CreateDeploymentOptions) createDeployment() *appsv1.Deployment {
+	fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/create/create_deployment.go createDeployment")
 	labels := map[string]string{"app": o.Name}
 	selector := metav1.LabelSelector{MatchLabels: labels}
 	namespace := ""
@@ -241,6 +247,7 @@ func (o *CreateDeploymentOptions) createDeployment() *appsv1.Deployment {
 // buildPodSpec parses the image strings and assemble them into the Containers
 // of a PodSpec. This is all you need to create the PodSpec for a deployment.
 func (o *CreateDeploymentOptions) buildPodSpec() corev1.PodSpec {
+	fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/create/create_deployment.go buildPodSpec")
 	podSpec := corev1.PodSpec{Containers: []corev1.Container{}}
 	for _, imageString := range o.Images {
 		// Retain just the image name
@@ -266,6 +273,7 @@ func (o *CreateDeploymentOptions) buildPodSpec() corev1.PodSpec {
 // sanitizeAndUniquify replaces characters like "." or "_" into "-" to follow DNS1123 rules.
 // Then add random suffix to make it uniquified.
 func sanitizeAndUniquify(name string) string {
+	fmt.Println("in staging/src/k8s.io/kubectl/pkg/cmd/create/create_deployment.go sanitizeAndUniquify")
 	if strings.ContainsAny(name, "_.") {
 		name = strings.Replace(name, "_", "-", -1)
 		name = strings.Replace(name, ".", "-", -1)

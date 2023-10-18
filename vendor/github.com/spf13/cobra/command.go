@@ -989,6 +989,7 @@ func (c *Command) ExecuteContext(ctx context.Context) error {
 // and run through the command tree finding appropriate matches
 // for commands and then corresponding flags.
 func (c *Command) Execute() error {
+	fmt.Println("in vendor/github.com/spf13/cobra/command.go/Execute")
 	_, err := c.ExecuteC()
 	return err
 }
@@ -1003,6 +1004,7 @@ func (c *Command) ExecuteContextC(ctx context.Context) (*Command, error) {
 
 // ExecuteC executes the command.
 func (c *Command) ExecuteC() (cmd *Command, err error) {
+	fmt.Println("in vendor/github.com/spf13/cobra/command.go/ExecuteC")
 	if c.ctx == nil {
 		c.ctx = context.Background()
 	}

@@ -17,6 +17,7 @@ limitations under the License.
 package rest
 
 import (
+	"fmt"
 	"net/http"
 	"net/url"
 	"os"
@@ -105,6 +106,7 @@ type RESTClient struct {
 // NewRESTClient creates a new RESTClient. This client performs generic REST functions
 // such as Get, Put, Post, and Delete on specified paths.
 func NewRESTClient(baseURL *url.URL, versionedAPIPath string, config ClientContentConfig, rateLimiter flowcontrol.RateLimiter, client *http.Client) (*RESTClient, error) {
+	fmt.Println("in staging/src/k8s.io/client-go/rest/client.go - NewRestClient")
 	if len(config.ContentType) == 0 {
 		config.ContentType = "application/json"
 	}
@@ -168,11 +170,13 @@ func readExpBackoffConfig() BackoffManager {
 // if err != nil { ... }
 // list, ok := resp.(*api.PodList)
 func (c *RESTClient) Verb(verb string) *Request {
+	fmt.Println("in vendor/k8s.io/client-go/rest/client.go - Verb")
 	return NewRequest(c).Verb(verb)
 }
 
 // Post begins a POST request. Short for c.Verb("POST").
 func (c *RESTClient) Post() *Request {
+	fmt.Println("in vendor/k8s.io/client-go/rest/client.go - Post")
 	return c.Verb("POST")
 }
 
